@@ -1,9 +1,7 @@
 package com.automationpractice.core.ui;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -50,6 +48,16 @@ public class WebDriverAction {
         webElement.sendKeys(value);
     }
 
+    public void scroll(By locator) {
+        wait.until(ExpectedConditions.elementToBeClickable(locator));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", driver.findElement(locator));
+    }
+
+    public void scroll(WebElement locator) {
+        wait.until(ExpectedConditions.elementToBeClickable(locator));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", locator);
+    }
+
     public String getText(WebElement webElement) {
         wait.until(ExpectedConditions.visibilityOf(webElement));
         return webElement.getText();
@@ -58,6 +66,18 @@ public class WebDriverAction {
     public String getText(By selector) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(selector));
         return driver.findElement(selector).getText();
+    }
+
+    public void hover(WebElement webElement) {
+        wait.until(ExpectedConditions.visibilityOf(webElement));
+        Actions actions = new Actions(driver);
+        actions.moveToElement(webElement).build().perform();
+    }
+
+    public void hover(By selector) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(selector));
+        Actions actions = new Actions(driver);
+        actions.moveToElement(driver.findElement(selector)).build().perform();
     }
 
     public String getAttribute(WebElement webElement, String attribute) {

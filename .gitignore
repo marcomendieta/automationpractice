@@ -2,8 +2,6 @@
 /.idea/
 /build/
 /gradle/
-gradlew.bat
-gradlew
 /out/
 *.iml
 /java/
